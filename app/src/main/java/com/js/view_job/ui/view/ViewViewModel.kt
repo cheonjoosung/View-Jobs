@@ -1,13 +1,13 @@
-package com.js.view_job.ui.notifications
+package com.js.view_job.ui.view
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class ViewViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "This is view Fragment"
     }
     val text: LiveData<String> = _text
 }
