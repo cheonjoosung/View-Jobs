@@ -1,10 +1,11 @@
 package com.js.view_job.ui.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.js.view_job.databinding.FragmentListBinding
@@ -28,11 +29,34 @@ class ListFragment : Fragment() {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        listViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        initSearchView()
+
         return root
+    }
+
+    private fun initSearchView() {
+        binding.searchView.apply {
+            isSubmitButtonEnabled = false
+
+            setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return if (query.isNullOrEmpty())  false
+                    else {
+                        Log.e("CJS", "onQueryTextSubmit query=$query")
+                        true
+                    }
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText.isNullOrEmpty()) return false
+                    else {
+                        Log.e("CJS", "onQueryTextChange newText=$newText")
+                        return true
+                    }
+                }
+
+            })
+        }
     }
 
     override fun onDestroyView() {
