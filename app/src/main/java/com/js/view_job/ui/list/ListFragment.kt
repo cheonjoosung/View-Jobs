@@ -71,10 +71,10 @@ class ListFragment : Fragment() {
     private fun initJobSiteListView() {
         jobSiteListAdapter = JobSiteListAdapter(
             jobSiteClickListener = { jobSite ->
-                showInputDialog(jobSite, true)
+                Log.e("CJS", "item clicked $jobSite")
             },
             jobSiteLongClickListener = { jobSite ->
-                Log.e("CJS", "item clicked $jobSite")
+                showInputDialog(jobSite, true)
             }
         )
 

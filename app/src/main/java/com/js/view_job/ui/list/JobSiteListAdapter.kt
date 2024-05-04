@@ -15,7 +15,8 @@ class JobSiteListAdapter(
     inner class JobSiteViewHolder(private val binding: ItemJobSiteBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: JobSite) {
-            binding.numberTextView.text = adapterPosition.toString()
+            val position = adapterPosition + 1
+            binding.numberTextView.text = position.toString()
             binding.companyNameTextView.text = item.companyName
             binding.companyUrlTextView.text = item.companyUrl
 
