@@ -10,8 +10,13 @@ class JobSiteRepository(private val jobSiteDao: JobSiteDao) {
     val allJobSites: Flow<List<JobSite>> = jobSiteDao.getAll()
 
     @WorkerThread
-    suspend fun insertOrUpdate(jobSite: JobSite) {
-        jobSiteDao.insertOrUpdate(jobSite)
+    suspend fun insert(jobSite: JobSite) {
+        jobSiteDao.insert(jobSite)
+    }
+
+    @WorkerThread
+    suspend fun update(jobSite: JobSite) {
+        jobSiteDao.update(jobSite)
     }
 
     @WorkerThread

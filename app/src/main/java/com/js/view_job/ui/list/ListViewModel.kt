@@ -1,12 +1,10 @@
 package com.js.view_job.ui.list
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.js.view_job.JobSiteApplication
 import com.js.view_job.repository.JobSiteRepository
 import kotlinx.coroutines.launch
 
@@ -15,7 +13,7 @@ class ListViewModel(private val repository: JobSiteRepository) : ViewModel() {
     val jobSites: LiveData<List<JobSite>> = repository.allJobSites.asLiveData()
 
     fun insertOrUpdate(jobSite: JobSite) = viewModelScope.launch {
-        repository.insertOrUpdate(jobSite)
+        repository.insert(jobSite)
     }
 
     fun delete(jobSite: JobSite) = viewModelScope.launch {
