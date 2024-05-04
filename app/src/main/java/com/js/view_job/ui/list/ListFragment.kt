@@ -31,6 +31,8 @@ class ListFragment : Fragment() {
 
         initSearchView()
 
+        initJobSiteListView()
+
         return root
     }
 
@@ -57,6 +59,29 @@ class ListFragment : Fragment() {
 
             })
         }
+    }
+
+    private fun initJobSiteListView() {
+        val jobSiteListAdapter = JobSiteListAdapter(
+            jobSiteClickListener = { jobSite ->
+                Log.e("CJS", "item clicked $jobSite")
+            },
+            jobSiteLongClickListener = { jobSite ->
+                Log.e("CJS", "item clicked $jobSite")
+            }
+        )
+
+        binding.jobRecyclerView.adapter = jobSiteListAdapter
+        jobSiteListAdapter.submitList(getSampleList())
+    }
+
+    private fun getSampleList(): List<JobSite> {
+        val mutableList = mutableListOf<JobSite>()
+        repeat(5) {
+            mutableList.add(JobSite(companyName = "삼성 $it", companyUrl = "삼성 URL $it"))
+        }
+
+        return mutableList
     }
 
     override fun onDestroyView() {
