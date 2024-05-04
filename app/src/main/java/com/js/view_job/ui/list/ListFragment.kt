@@ -7,24 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.js.view_job.JobSiteApplication
 import com.js.view_job.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
+    private val listViewModel: ListViewModel by viewModels { ListViewModelFactory((requireActivity().application as JobSiteApplication).jobSiteRepository) }
+
+    private lateinit var jobSiteListAdapter: JobSiteListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val listViewModel =
-            ViewModelProvider(this)[ListViewModel::class.java]
 
         _binding = FragmentListBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -33,6 +35,8 @@ class ListFragment : Fragment() {
 
         initJobSiteListView()
 
+        initObserveLiveData()
+
         return root
     }
 
@@ -40,9 +44,9 @@ class ListFragment : Fragment() {
         binding.searchView.apply {
             isSubmitButtonEnabled = false
 
-            setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    return if (query.isNullOrEmpty())  false
+                    return if (query.isNullOrEmpty()) false
                     else {
                         Log.e("CJS", "onQueryTextSubmit query=$query")
                         true
@@ -62,7 +66,7 @@ class ListFragment : Fragment() {
     }
 
     private fun initJobSiteListView() {
-        val jobSiteListAdapter = JobSiteListAdapter(
+        jobSiteListAdapter = JobSiteListAdapter(
             jobSiteClickListener = { jobSite ->
                 Log.e("CJS", "item clicked $jobSite")
             },
@@ -72,16 +76,14 @@ class ListFragment : Fragment() {
         )
 
         binding.jobRecyclerView.adapter = jobSiteListAdapter
-        jobSiteListAdapter.submitList(getSampleList())
     }
 
-    private fun getSampleList(): List<JobSite> {
-        val mutableList = mutableListOf<JobSite>()
-        repeat(5) {
-            mutableList.add(JobSite(companyName = "삼성 $it", companyUrl = "삼성 URL $it"))
+    private fun initObserveLiveData() {
+        listViewModel.jobSites.observe(viewLifecycleOwner) { jobSites ->
+            if (::jobSiteListAdapter.isInitialized) {
+                jobSiteListAdapter.submitList(jobSites)
+            }
         }
-
-        return mutableList
     }
 
     override fun onDestroyView() {
