@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.js.view_job.JobSiteApplication
+import com.js.view_job.common.JobSiteDialogFragment
 import com.js.view_job.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
@@ -36,6 +35,10 @@ class ListFragment : Fragment() {
         initJobSiteListView()
 
         initObserveLiveData()
+
+        binding.floatingActionButton.setOnClickListener {
+            showInputDialog(null, false)
+        }
 
         return root
     }
@@ -68,7 +71,7 @@ class ListFragment : Fragment() {
     private fun initJobSiteListView() {
         jobSiteListAdapter = JobSiteListAdapter(
             jobSiteClickListener = { jobSite ->
-                Log.e("CJS", "item clicked $jobSite")
+                showInputDialog(jobSite, true)
             },
             jobSiteLongClickListener = { jobSite ->
                 Log.e("CJS", "item clicked $jobSite")
@@ -84,6 +87,25 @@ class ListFragment : Fragment() {
                 jobSiteListAdapter.submitList(jobSites)
             }
         }
+    }
+
+    private fun showInputDialog(jobSite: JobSite?, isUpdate: Boolean = false) {
+        val dialog = JobSiteDialogFragment(
+            jobSite = jobSite,
+            dialogNegativeClick = {
+                Log.e("CJS", "negative clicked")
+            },
+            dialogPositiveClick = { input, _ ->
+                Log.e("CJS", "positive clicked jobSite=$input")
+                if (isUpdate) {
+                    listViewModel.update(input)
+                } else {
+                    listViewModel.insert(input)
+                }
+            }
+        )
+
+        dialog.show(parentFragmentManager, "JobSiteDialogFragment")
     }
 
     override fun onDestroyView() {

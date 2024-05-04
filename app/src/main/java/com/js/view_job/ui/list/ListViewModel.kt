@@ -6,18 +6,30 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.js.view_job.repository.JobSiteRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListViewModel(private val repository: JobSiteRepository) : ViewModel() {
 
     val jobSites: LiveData<List<JobSite>> = repository.allJobSites.asLiveData()
 
-    fun insertOrUpdate(jobSite: JobSite) = viewModelScope.launch {
-        repository.insert(jobSite)
+    fun insert(jobSite: JobSite) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insert(jobSite)
+        }
     }
 
-    fun delete(jobSite: JobSite) = viewModelScope.launch {
-        repository.delete(jobSite)
+    fun update(jobSite: JobSite) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.update(jobSite)
+        }
+    }
+
+    fun delete(jobSite: JobSite) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.delete(jobSite)
+        }
     }
 }
 

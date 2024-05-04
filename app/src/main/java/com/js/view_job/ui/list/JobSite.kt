@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class JobSite(
     @PrimaryKey(autoGenerate = true) val uid: Int,
-    @ColumnInfo(name = "companyName") val companyName: String?,
-    @ColumnInfo(name = "companyUrl") val companyUrl: String?
+    @ColumnInfo(name = "companyName") var companyName: String?,
+    @ColumnInfo(name = "companyUrl") var companyUrl: String?
 ) {
     constructor(companyName: String?, companyUrl: String?) : this(0, companyName, companyUrl)
 }
