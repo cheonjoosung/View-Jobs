@@ -3,4 +3,11 @@
     <string name="title_list">List</string>
     <string name="title_view">View</string>
     <string name="title_setting">Setting</string>
+    <string name="title_job_site_input">채용 사이트 정보를 입력 하세요.</string>
+    <string name="hint_job_site_name">채용 사이트 회사명</string>
+    <string name="hint_job_site_url">채용 사이트 주소</string>
+    <string name="message_input_error">입력값 오류</string>
+    <string name="cancel">취소</string>
+    <string name="ok">확인</string>
+    <string name="add">추가</string>
 </resources>
