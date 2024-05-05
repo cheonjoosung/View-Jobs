@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.js.view_job.JobSiteApplication
 import com.js.view_job.common.JobSiteDialogFragment
 import com.js.view_job.databinding.FragmentListBinding
@@ -71,7 +72,8 @@ class ListFragment : Fragment() {
     private fun initJobSiteListView() {
         jobSiteListAdapter = JobSiteListAdapter(
             jobSiteClickListener = { jobSite ->
-                Log.e("CJS", "item clicked $jobSite")
+                val action = ListFragmentDirections.goToViewFragment(jobSite.companyUrl ?: "")
+                findNavController().navigate(action)
             },
             jobSiteLongClickListener = { jobSite ->
                 showInputDialog(jobSite, true)

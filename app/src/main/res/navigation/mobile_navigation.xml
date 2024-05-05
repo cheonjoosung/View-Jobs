@@ -9,13 +9,33 @@
         android:id="@+id/navigation_list"
         android:name="com.js.view_job.ui.list.ListFragment"
         android:label="@string/title_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list">
+
+        <action
+            android:id="@+id/goToViewFragment"
+            app:destination="@id/navigation_view">
+
+            <argument
+                android:name="argsUrl"
+                android:defaultValue=""
+                app:argType="string" />
+
+        </action>
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_view"
         android:name="com.js.view_job.ui.view.ViewFragment"
         android:label="@string/title_view"
-        tools:layout="@layout/fragment_view" />
+        tools:layout="@layout/fragment_view">
+
+        <argument
+            android:name="argsUrl"
+            android:defaultValue=""
+            app:argType="string" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_setting"
