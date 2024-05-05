@@ -31,8 +31,6 @@ class ListFragment : Fragment() {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        initSearchView()
-
         initJobSiteListView()
 
         initObserveLiveData()
@@ -42,31 +40,6 @@ class ListFragment : Fragment() {
         }
 
         return root
-    }
-
-    private fun initSearchView() {
-        binding.searchView.apply {
-            isSubmitButtonEnabled = false
-
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return if (query.isNullOrEmpty()) false
-                    else {
-                        Log.e("CJS", "onQueryTextSubmit query=$query")
-                        true
-                    }
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    if (newText.isNullOrEmpty()) return false
-                    else {
-                        Log.e("CJS", "onQueryTextChange newText=$newText")
-                        return true
-                    }
-                }
-
-            })
-        }
     }
 
     private fun initJobSiteListView() {
