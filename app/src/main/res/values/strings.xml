@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ViewJob</string>
+    <string name="app_name">채용 모아보기</string>
     <string name="title_list">List</string>
     <string name="title_view">View</string>
     <string name="title_setting">Setting</string>
