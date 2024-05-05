@@ -15,7 +15,7 @@
 |<img src="https://github.com/cheonjoosung/View-Jobs/blob/master/image/list_1.jpg">|<img src="https://github.com/cheonjoosung/View-Jobs/blob/master/image/list_2.jpg">|
 |-|-|
 
-|<img src="https://github.com/cheonjoosung/View-Jobs/blob/master/image/view_1.jpg">|<img src="https://github.com/cheonjoosung/View-Jobs/blob/master/image/view_22.jpg">|
+|<img src="https://github.com/cheonjoosung/View-Jobs/blob/master/image/view_1.jpg">|<img src="https://github.com/cheonjoosung/View-Jobs/blob/master/image/view_2.jpg">|
 |-|-|
 
 
