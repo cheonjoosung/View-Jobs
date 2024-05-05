@@ -9,8 +9,14 @@ import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.js.view_job.JobSiteApplication
+import com.js.view_job.common.JobSiteInputDialogFragment
+import com.js.view_job.common.JobSiteListDialogFragment
 import com.js.view_job.databinding.FragmentViewBinding
+import com.js.view_job.ui.list.JobSite
+import com.js.view_job.ui.list.MyViewModelFactory
 
 class ViewFragment : Fragment() {
 
@@ -19,10 +25,12 @@ class ViewFragment : Fragment() {
 
     private val args: ViewFragmentArgs by navArgs()
 
+    private val viewViewModel: ViewViewModel by viewModels { MyViewModelFactory((requireActivity().application as JobSiteApplication).jobSiteRepository) }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val companyUrl = args.argsUrl
         Log.e(javaClass.simpleName, "companyUrl=$companyUrl")
@@ -37,7 +45,7 @@ class ViewFragment : Fragment() {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun initWebView(companyUrl: String ) {
+    private fun initWebView(companyUrl: String) {
         binding.webView.apply {
             webViewClient = WebViewClient()
             webChromeClient = WebChromeClient()
@@ -56,9 +64,25 @@ class ViewFragment : Fragment() {
         }
     }
 
-    // TODO ViewModel & repository 추가, DB에 있는 목록 보여주기
     private fun initFloatingView() {
 
+        binding.siteFloatingActionButton.setOnClickListener {
+            viewViewModel.getJobSiteAll { list ->
+                showListDialog(list)
+            }
+        }
+    }
+
+    private fun showListDialog(jobSites: List<JobSite>) {
+        val dialog = JobSiteListDialogFragment(
+            jobSites = jobSites,
+            dialogPositiveClick = { input, _ ->
+                input.companyUrl?.let { url ->
+                    binding.webView.loadUrl(url)
+                }
+            }
+        )
+        dialog.show(parentFragmentManager, "JobSiteListDialogFragment")
     }
 
     override fun onDestroyView() {

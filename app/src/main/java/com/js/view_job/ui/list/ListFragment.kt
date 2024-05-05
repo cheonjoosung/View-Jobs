@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.js.view_job.JobSiteApplication
-import com.js.view_job.common.JobSiteDialogFragment
+import com.js.view_job.common.JobSiteInputDialogFragment
 import com.js.view_job.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
@@ -18,7 +18,7 @@ class ListFragment : Fragment() {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
-    private val listViewModel: ListViewModel by viewModels { ListViewModelFactory((requireActivity().application as JobSiteApplication).jobSiteRepository) }
+    private val listViewModel: ListViewModel by viewModels { MyViewModelFactory((requireActivity().application as JobSiteApplication).jobSiteRepository) }
 
     private lateinit var jobSiteListAdapter: JobSiteListAdapter
 
@@ -93,7 +93,7 @@ class ListFragment : Fragment() {
     }
 
     private fun showInputDialog(jobSite: JobSite?, isUpdate: Boolean = false) {
-        val dialog = JobSiteDialogFragment(
+        val dialog = JobSiteInputDialogFragment(
             jobSite = jobSite,
             dialogNegativeClick = {
                 Log.e("CJS", "negative clicked")

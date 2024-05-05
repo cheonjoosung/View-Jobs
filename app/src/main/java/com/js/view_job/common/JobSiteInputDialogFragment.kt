@@ -9,7 +9,7 @@ import com.js.view_job.R
 import com.js.view_job.databinding.DialogInputJobSiteBinding
 import com.js.view_job.ui.list.JobSite
 
-class JobSiteDialogFragment(
+class JobSiteInputDialogFragment(
     val jobSite: JobSite?,
     var dialogPositiveClick: (JobSite, DialogFragment) -> Unit,
     var dialogNegativeClick: (DialogFragment) -> Unit,

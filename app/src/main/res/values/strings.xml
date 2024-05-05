@@ -4,6 +4,7 @@
     <string name="title_view">View</string>
     <string name="title_setting">Setting</string>
     <string name="title_job_site_input">채용 사이트 정보를 입력 하세요.</string>
+    <string name="title_job_site_list">채용 사이트를 선택 하세요.</string>
     <string name="hint_job_site_name">채용 사이트 회사명</string>
     <string name="hint_job_site_url">채용 사이트 주소</string>
     <string name="message_input_error">입력값 오류</string>

@@ -15,6 +15,11 @@ class JobSiteRepository(private val jobSiteDao: JobSiteDao) {
     }
 
     @WorkerThread
+    suspend fun getAllList(): List<JobSite> {
+        return jobSiteDao.getAllList()
+    }
+
+    @WorkerThread
     suspend fun update(jobSite: JobSite) {
         jobSiteDao.update(jobSite)
     }

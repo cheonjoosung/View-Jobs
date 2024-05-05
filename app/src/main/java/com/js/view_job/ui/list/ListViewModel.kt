@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.js.view_job.repository.JobSiteRepository
+import com.js.view_job.ui.view.ViewViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ListViewModel(private val repository: JobSiteRepository) : ViewModel() {
 
@@ -33,11 +33,14 @@ class ListViewModel(private val repository: JobSiteRepository) : ViewModel() {
     }
 }
 
-class ListViewModelFactory(private val repository: JobSiteRepository) : ViewModelProvider.Factory {
+class MyViewModelFactory(private val repository: JobSiteRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ListViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return ListViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(ViewViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return ViewViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

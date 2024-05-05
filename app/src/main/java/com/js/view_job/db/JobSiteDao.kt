@@ -15,6 +15,9 @@ interface JobSiteDao {
     @Query("SELECT * FROM JobSite")
     fun getAll(): Flow<List<JobSite>>
 
+    @Query("SELECT * FROM JobSite")
+    fun getAllList(): List<JobSite>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(jobSite: JobSite)
 
