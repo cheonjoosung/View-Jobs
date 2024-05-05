@@ -13,11 +13,11 @@
 
         <action
             android:id="@+id/goToViewFragment"
-            app:destination="@id/navigation_view">
+            app:destination="@id/navigation_view"
+            app:launchSingleTop="true">
 
             <argument
                 android:name="argsUrl"
-                android:defaultValue=""
                 app:argType="string" />
 
         </action>

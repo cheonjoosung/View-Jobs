@@ -72,7 +72,8 @@ class ListFragment : Fragment() {
     private fun initJobSiteListView() {
         jobSiteListAdapter = JobSiteListAdapter(
             jobSiteClickListener = { jobSite ->
-                val action = ListFragmentDirections.goToViewFragment(jobSite.companyUrl ?: "")
+                val companyUrl = jobSite.companyUrl ?: ""
+                val action = ListFragmentDirections.goToViewFragment(companyUrl)
                 findNavController().navigate(action)
             },
             jobSiteLongClickListener = { jobSite ->
