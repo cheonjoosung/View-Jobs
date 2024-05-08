@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.js.view_job.JobSiteApplication
 import com.js.view_job.common.JobSiteInputDialogFragment
@@ -40,6 +42,14 @@ class ViewFragment : Fragment() {
         initWebView(companyUrl)
 
         initFloatingView()
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (binding.webView.canGoBack()) {
+                binding.webView.goBack()
+            } else {
+                findNavController().popBackStack()
+            }
+        }
 
         return binding.root
     }
